@@ -908,7 +908,7 @@ MonoBehaviour:
   gameOverText: {fileID: 1344851386}
   gameOverPanel: {fileID: 1849058628}
   gamePausePanel: {fileID: 1911500618}
-  timeLimit: 10
+  timeLimit: 20
 --- !u!4 &964635646
 Transform:
   m_ObjectHideFlags: 0
@@ -1662,7 +1662,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4e3cd935cdde76f4d9ae23d40d4623bf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 90a47237a52a76442b15b7e5059598d0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1859,6 +1859,11 @@ MonoBehaviour:
   - {fileID: -1966318771, guid: 4edfb2b9c1a694922904462a03fa60d7, type: 3}
   - {fileID: -1902400723, guid: 4edfb2b9c1a694922904462a03fa60d7, type: 3}
   - {fileID: -2120193079, guid: 4edfb2b9c1a694922904462a03fa60d7, type: 3}
+  healthPrefab: {fileID: 7643008111828314505, guid: 7361e5112492a4143b8c3e17a728fc25, type: 3}
+  healthSprites:
+  - {fileID: 21300000, guid: 116f6ffd95785054fb0ff14d77296973, type: 3}
+  - {fileID: 21300002, guid: 116f6ffd95785054fb0ff14d77296973, type: 3}
+  healthCount: 5
 --- !u!4 &1679020671
 Transform:
   m_ObjectHideFlags: 0

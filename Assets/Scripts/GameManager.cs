@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private List<Card> allCards;
     private Card flippedCard;
     private bool isFlipping = false;
+    private List<Health> allHealths;
 
     [SerializeField]
     private Slider timeoutSlider;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject gamePausePanel;
+    
 
     private bool isGameOver = false;
     private bool isGamePaused = false;
@@ -116,6 +118,8 @@ public class GameManager : MonoBehaviour
                 GameOver(true);
             }
         } else {
+            //Health health = GameObject.Find("Health");//GetComponent<Health>();
+            DecreaseHealth();
             // Debug.Log("Different Card!!!");
             yield return new WaitForSeconds(1f);
 
@@ -180,5 +184,27 @@ public class GameManager : MonoBehaviour
     public void gameStart()
     {
         SceneManager.LoadScene("MainScene");
+    }
+
+    public void DecreaseHealth() {
+        Debug.Log("DecreaseHealth Called!");
+        Board board = FindObjectOfType<Board>();
+
+        if(board.healthCount <= 1) {
+            GameOver(false);
+        }
+
+        allHealths = board.GetHealths();
+
+        Debug.Log("allHealths.Count?" + allHealths.Count);
+        
+        //allHealths[4].unfilledHealthSprite();
+        // foreach (Health health in allHealths) {
+            // health.healthRenderer.sprite = health.unfilledHealthSprite;
+        // }
+
+
+        allHealths[board.healthCount-1].healthRenderer.sprite = allHealths[board.healthCount-1].unfilledHealthSprite;
+        board.healthCount -= 1;
     }
 }

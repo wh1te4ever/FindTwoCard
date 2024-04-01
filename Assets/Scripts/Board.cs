@@ -13,12 +13,22 @@ public class Board : MonoBehaviour
     private List<int> cardIDList = new List<int>();
     private List<Card> cardList = new List<Card>();
 
+    [SerializeField]
+    private GameObject healthPrefab;
+
+    [SerializeField]
+    private Sprite[] healthSprites;
+    private List<int> healthIDList = new List<int>();
+    private List<Health> healthList = new List<Health>();
+    public int healthCount = 5;
+
     // Start is called before the first frame update
     void Start()
     {
         GenerateCardID();
         ShuffleCardID();
         InitBoard();
+        InitHealth();
     }
 
     void GenerateCardID() {
@@ -38,6 +48,37 @@ public class Board : MonoBehaviour
             cardIDList[i] = temp;
         }
         // 1, 3, 2, 4, 5, 5, 6, 1 ...
+    }
+
+    void InitHealth() {
+        float spaceY = 5.6f;//4.8f;//3.6f;//1.8f;
+        float spaceX = 0.45f;//2.6f;//1.3f;
+
+
+        //int colCount = 5;
+
+        int healthIndex = 0;
+
+        for (int i = 0; i < healthCount; i++) {
+            healthIDList.Add(i);
+        }
+
+        for(int col = 0; col < healthCount; col++) {
+            float posX = (col - (healthCount / 2)) * spaceX + (spaceX / 2) + 1.25f;
+            int row = 0; int rowCount = 1;
+            float posY = 4.25f;//(row - (int)(rowCount / 2)) * spaceY;
+            Vector3 pos = new Vector3(posX, posY, 0f);
+            GameObject healthObject = Instantiate(healthPrefab, pos, Quaternion.identity);
+            Health health = healthObject.GetComponent<Health>();
+            int healthID = healthIDList[healthIndex++];
+            health.SetHealthID(healthID);
+            //health.SetHealthSprite(healthSprites[healthID]);
+            healthList.Add(health);
+        }
+    }
+
+    public List<Health> GetHealths() {
+        return healthList;
     }
 
     void InitBoard() {
