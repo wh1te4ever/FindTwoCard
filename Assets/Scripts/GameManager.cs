@@ -25,7 +25,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject gameOverPanel;
 
+    [SerializeField]
+    private GameObject gamePausePanel;
+
     private bool isGameOver = false;
+    private bool isGamePaused = false;
 
 
     [SerializeField]
@@ -86,7 +90,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void CardClicked(Card card) {
-        if(isFlipping || isGameOver) {
+        if(isGamePaused || isFlipping || isGameOver) {
             return;
         }
 
@@ -146,6 +150,25 @@ public class GameManager : MonoBehaviour
     }
 
     public void Restart() {
+        Time.timeScale = 1;
+        isGamePaused = false;
         SceneManager.LoadScene("SampleScene");
+    }
+
+    public void Resume() {
+        Time.timeScale = 1;
+        gamePausePanel.SetActive(false);
+        isGamePaused = false;
+    }
+
+    public void pauseBtnClicked() {
+        if(isGameOver)
+            return;
+        Debug.Log("pauseBtnClicked!!");
+        isGamePaused = true;
+
+        Time.timeScale = 0;
+        gamePausePanel.SetActive(true);
+
     }
 }

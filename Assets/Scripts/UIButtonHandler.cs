@@ -15,8 +15,4 @@ public class UIButtonHandler : MonoBehaviour
     {
         
     }
-
-    public void pauseBtnClicked() {
-        Debug.Log("pauseBtnClicked!!");
-    }
 }
