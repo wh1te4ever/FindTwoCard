@@ -171,4 +171,9 @@ public class GameManager : MonoBehaviour
         gamePausePanel.SetActive(true);
 
     }
+
+    public void gameStart()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
 }
