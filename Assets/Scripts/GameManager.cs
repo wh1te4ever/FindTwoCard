@@ -172,6 +172,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void BackTitle() {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("StartScene");
+    }
+
     public void gameStart()
     {
         SceneManager.LoadScene("MainScene");
