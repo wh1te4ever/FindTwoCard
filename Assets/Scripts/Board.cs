@@ -62,7 +62,7 @@ public class Board : MonoBehaviour
         // -2, -0.7, 0.7, 2
 
 
-        int rowCount = 5;
+        int rowCount = 4;
         int colCount = 4;
 
         int cardIndex = 0;
