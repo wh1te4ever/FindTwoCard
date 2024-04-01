@@ -1497,7 +1497,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1669822254}
+      - m_Target: {fileID: 964635645}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: pauseBtnClicked
         m_Mode: 1
@@ -1662,14 +1662,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1669822249}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7b4cdf8ff8ff46b4bbe74bc5dcdae66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeoutSlider: {fileID: 0}
-  timeoutText: {fileID: 0}
-  gameOverText: {fileID: 0}
+  timeoutSlider: {fileID: 442797244}
+  timeoutText: {fileID: 1934887075}
+  gameOverText: {fileID: 1344851386}
   gameOverPanel: {fileID: 1849058628}
   gamePausePanel: {fileID: 1911500618}
   timeLimit: 60
@@ -2319,6 +2319,7 @@ GameObject:
   - component: {fileID: 1966966777}
   - component: {fileID: 1966966776}
   - component: {fileID: 1966966775}
+  - component: {fileID: 1966966778}
   m_Layer: 5
   m_Name: Resume
   m_TagString: Untagged
@@ -2392,7 +2393,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 964635645}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: Restart
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2440,6 +2441,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966966773}
   m_CullTransparentMesh: 1
+--- !u!114 &1966966778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966966773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 964635645}
+          m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+          m_MethodName: Resume
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

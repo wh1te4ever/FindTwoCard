@@ -156,9 +156,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void Resume() {
-        Time.timeScale = 1;
         gamePausePanel.SetActive(false);
         isGamePaused = false;
+        Time.timeScale = 1;
     }
 
     public void pauseBtnClicked() {
