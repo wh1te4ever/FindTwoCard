@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
     public void Restart() {
         Time.timeScale = 1;
         isGamePaused = false;
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("MainScene");
     }
 
     public void Resume() {
