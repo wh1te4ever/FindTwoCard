@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
     private bool isGameOver = false;
     private bool isGamePaused = false;
 
+    //보스 체력
+    public int bossHp = 20;
+
 
     [SerializeField]
     private float timeLimit = 60f;
