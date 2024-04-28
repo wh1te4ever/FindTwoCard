@@ -51,7 +51,7 @@ public class Board : MonoBehaviour
     }
 
     void InitHealth() {
-        float spaceY = 5.6f;//4.8f;//3.6f;//1.8f;
+        /* float spaceY = 5.6f;//4.8f;//3.6f;//1.8f; */ // 사용안되는중
         float spaceX = 0.45f;//2.6f;//1.3f;
 
 
@@ -82,7 +82,7 @@ public class Board : MonoBehaviour
     }
 
     void InitBoard() {
-        float spaceY = 1.8f;
+        float spaceY = 1.7f;
         // row
         // 0 - 2 = -2 * spaceY = -3.6
         // 1 - 2 = -1 * spaceY = -1.8
@@ -103,7 +103,7 @@ public class Board : MonoBehaviour
         // -2, -0.7, 0.7, 2
 
 
-        int rowCount = 4;
+        int rowCount = 3;
         int colCount = 4;
 
         int cardIndex = 0;
@@ -111,7 +111,7 @@ public class Board : MonoBehaviour
         for (int row = 0; row < rowCount; row++) {
             for(int col = 0; col < colCount; col++) {
                 float posX = (col - (colCount / 2)) * spaceX + (spaceX / 2);
-                float posY = (row - (int)(rowCount / 2)) * spaceY;
+                float posY = (row - (float)(rowCount / 1.25)) * spaceY;
                 Vector3 pos = new Vector3(posX, posY, 0f);
                 GameObject cardObject = Instantiate(cardPrefab, pos, Quaternion.identity);
                 Card card = cardObject.GetComponent<Card>();

@@ -908,6 +908,7 @@ MonoBehaviour:
   gameOverText: {fileID: 1344851386}
   gameOverPanel: {fileID: 1849058628}
   gamePausePanel: {fileID: 1911500618}
+  bossHp: 20
   timeLimit: 20
 --- !u!4 &964635646
 Transform:
@@ -1805,6 +1806,7 @@ MonoBehaviour:
   gameOverText: {fileID: 1344851386}
   gameOverPanel: {fileID: 1849058628}
   gamePausePanel: {fileID: 1911500618}
+  bossHp: 20
   timeLimit: 60
 --- !u!114 &1669822255
 MonoBehaviour:
@@ -1855,10 +1857,6 @@ MonoBehaviour:
   - {fileID: -1965129257, guid: b6a2bb854651e47938a4c5b86187021b, type: 3}
   - {fileID: 1594003768, guid: b6a2bb854651e47938a4c5b86187021b, type: 3}
   - {fileID: 1914726173, guid: b6a2bb854651e47938a4c5b86187021b, type: 3}
-  - {fileID: 105836599, guid: 4edfb2b9c1a694922904462a03fa60d7, type: 3}
-  - {fileID: -1966318771, guid: 4edfb2b9c1a694922904462a03fa60d7, type: 3}
-  - {fileID: -1902400723, guid: 4edfb2b9c1a694922904462a03fa60d7, type: 3}
-  - {fileID: -2120193079, guid: 4edfb2b9c1a694922904462a03fa60d7, type: 3}
   healthPrefab: {fileID: 7643008111828314505, guid: 7361e5112492a4143b8c3e17a728fc25, type: 3}
   healthSprites:
   - {fileID: 21300000, guid: 116f6ffd95785054fb0ff14d77296973, type: 3}
@@ -1873,7 +1871,7 @@ Transform:
   m_GameObject: {fileID: 1679020669}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.085282, y: 1.8987222, z: -0.020970033}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
