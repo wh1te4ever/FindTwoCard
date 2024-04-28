@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI timeoutText;
 
     [SerializeField]
+    private Slider bossHealthSlider;
+
+    [SerializeField]
     private TextMeshProUGUI gameOverText;
 
     [SerializeField]
@@ -28,13 +31,19 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject gamePausePanel;
-    
+
+    public int round;
 
     private bool isGameOver = false;
     private bool isGamePaused = false;
 
     //보스 체력
-    public int bossHp = 20;
+    public int bossHpCur = Boss.bossHealthCur;
+    public int bossHpMax = Boss.bossHealthMax;
+
+    //콤보, 대미지
+    private int combo = 0;
+    private int damage;
 
 
     [SerializeField]
@@ -58,6 +67,7 @@ public class GameManager : MonoBehaviour
         currentTime = timeLimit;
         SetCurrentTimeText();
         StartCoroutine("FlipAllCardsRoutine");
+        CountDownTimerRoutine();
     }
 
     void SetCurrentTimeText() {
@@ -88,6 +98,15 @@ public class GameManager : MonoBehaviour
         GameOver(false);
     }
 
+    IEnumerator BossHealthBar()
+    {
+        while (bossHpCur > 0)
+        {
+            bossHealthSlider.value = Boss.bossHealthCur / Boss.bossHealthMax;
+            yield return null;
+        }
+    }
+
     void FlipAllCards() {
         foreach (Card card in allCards) {
             card.FlipCard();
@@ -116,13 +135,19 @@ public class GameManager : MonoBehaviour
             card1.SetMatched();
             card2.SetMatched();
             matchesFound++;
+            combo++;
 
             if(matchesFound == totalMatches) {
                 GameOver(true);
             }
+
         } else {
             //Health health = GameObject.Find("Health");//GetComponent<Health>();
             DecreaseHealth();
+            Boss.bossHealthCur -= combo;
+            combo = 0;
+            StartCoroutine(BossHealthBar());
+            Debug.Log(Boss.bossHealthCur);
             // Debug.Log("Different Card!!!");
             yield return new WaitForSeconds(1f);
 

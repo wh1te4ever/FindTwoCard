@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+
+    [SerializeField]
+    private GameObject bossPrefab;
+
     [SerializeField]
     private GameObject cardPrefab;
 
@@ -29,6 +33,7 @@ public class Board : MonoBehaviour
         ShuffleCardID();
         InitBoard();
         InitHealth();
+        InitBoss();
     }
 
     void GenerateCardID() {
@@ -51,7 +56,7 @@ public class Board : MonoBehaviour
     }
 
     void InitHealth() {
-        /* float spaceY = 5.6f;//4.8f;//3.6f;//1.8f; */ // 사용안되는중
+        float spaceY = 5.6f;//4.8f;//3.6f;//1.8f;
         float spaceX = 0.45f;//2.6f;//1.3f;
 
 
@@ -121,6 +126,11 @@ public class Board : MonoBehaviour
                 cardList.Add(card);
             }
         }
+    }
+    void InitBoss()
+    {
+        Vector3 pos = new Vector3(0f, 2.2f, 0f);
+        GameObject bossObject = Instantiate(bossPrefab, pos, Quaternion.identity);
     }
 
     public List<Card> GetCards() {
