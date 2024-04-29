@@ -985,8 +985,8 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1849058628}
   gamePausePanel: {fileID: 1911500618}
   round: 1
-  bossHpCur: 0
-  bossHpMax: 0
+  bossHpCur: 20
+  bossHpMax: 20
   timeLimit: 60
 --- !u!4 &964635646
 Transform:
@@ -2046,13 +2046,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeoutSlider: {fileID: 442797244}
   timeoutText: {fileID: 1934887075}
-  bossHealthSlider: {fileID: 0}
+  bossHealthSlider: {fileID: 1203273022}
   gameOverText: {fileID: 1344851386}
   gameOverPanel: {fileID: 1849058628}
   gamePausePanel: {fileID: 1911500618}
-  round: 0
-  bossHpCur: 0
-  bossHpMax: 0
+  round: 1
+  bossHpCur: 20
+  bossHpMax: 20
   timeLimit: 60
 --- !u!114 &1669822255
 MonoBehaviour:

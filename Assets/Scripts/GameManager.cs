@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
         SetCurrentTimeText();
         StartCoroutine("FlipAllCardsRoutine");
         CountDownTimerRoutine();
-        BossHealthBar();
+        //BossHealthBar();
     }
 
     void SetCurrentTimeText() {
@@ -84,6 +84,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         isFlipping = false;
 
+        // StartCoroutine("BossHealthBar");
+        //BossHealthBar();
         yield return StartCoroutine("CountDownTimerRoutine");
     }
 
@@ -98,10 +100,14 @@ public class GameManager : MonoBehaviour
         GameOver(false);
     }
 
-    IEnumerator BossHealthBar()
+    void BossHealthBar()
     {
-        bossHealthSlider.value = Boss.bossHealthCur / Boss.bossHealthMax;
-        yield return null;
+        Debug.Log("bossHealthCur: " + Boss.bossHealthCur + "bossHealthMax: " +Boss.bossHealthMax);
+        bossHealthSlider.value = (float)((float)Boss.bossHealthCur / (float)Boss.bossHealthMax);
+        Debug.Log("bossHealthSlider.value: " + bossHealthSlider.value);
+        //Debug.Log("bossHealthSlider.value: " + bossHealthSlider.value);
+        //bossHealthSlider.value = 0.5f;
+        //yield return null;
     }
 
     void FlipAllCards() {
