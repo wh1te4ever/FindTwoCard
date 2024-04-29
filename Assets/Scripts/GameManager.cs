@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float timeLimit = 60f;
     private float currentTime;
-    private int totalMatches = 10;
+    private int totalMatches = 8;
     private int matchesFound = 0;
 
     void Awake() {
