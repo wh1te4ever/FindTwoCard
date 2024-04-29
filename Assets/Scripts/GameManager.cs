@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI timeoutText;
 
     [SerializeField]
+    private Slider bossHealthSlider;
+
+    [SerializeField]
     private TextMeshProUGUI gameOverText;
 
     [SerializeField]
@@ -28,19 +31,24 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject gamePausePanel;
-    
+
+    public int round;
 
     private bool isGameOver = false;
     private bool isGamePaused = false;
 
     //보스 체력
-    public int bossHp = 20;
+    public int bossHpCur = Boss.bossHealthCur;
+    public int bossHpMax = Boss.bossHealthMax;
 
+    //콤보, 대미지
+    private int combo = 0;
+    private int damage;
 
     [SerializeField]
     private float timeLimit = 60f;
     private float currentTime;
-    private int totalMatches = 8;
+    private int totalMatches = 6;
     private int matchesFound = 0;
 
     void Awake() {
@@ -58,6 +66,8 @@ public class GameManager : MonoBehaviour
         currentTime = timeLimit;
         SetCurrentTimeText();
         StartCoroutine("FlipAllCardsRoutine");
+        CountDownTimerRoutine();
+        BossHealthBar();
     }
 
     void SetCurrentTimeText() {
@@ -88,6 +98,12 @@ public class GameManager : MonoBehaviour
         GameOver(false);
     }
 
+    IEnumerator BossHealthBar()
+    {
+        bossHealthSlider.value = Boss.bossHealthCur / Boss.bossHealthMax;
+        yield return null;
+    }
+
     void FlipAllCards() {
         foreach (Card card in allCards) {
             card.FlipCard();
@@ -116,40 +132,31 @@ public class GameManager : MonoBehaviour
             card1.SetMatched();
             card2.SetMatched();
             matchesFound++;
-
-            RestartTimer();
+            combo++;
 
             if (matchesFound == totalMatches) {
                 GameOver(true);
             }
+
         } else {
             //Health health = GameObject.Find("Health");//GetComponent<Health>();
             DecreaseHealth();
+            Boss.bossHealthCur -= combo;
+            BossHealthBar();
+            combo = 0;
+            BossHealthBar();
+            Debug.Log(Boss.bossHealthCur);
             // Debug.Log("Different Card!!!");
             yield return new WaitForSeconds(1f);
 
             card1.FlipCard();
             card2.FlipCard();
 
-            StopCoroutine("CountDownTimerRoutine");
             yield return new WaitForSeconds(0.4f);
-            
-            RestartTimer();
-
-            if(isGameOver)
-                StopCoroutine("CountDownTimerRoutine");
         }
 
         isFlipping = false;
         flippedCard = null;
-    }
-
-    void RestartTimer()
-    {
-        // 현재 타이머를 다시 설정하고 코루틴을 중지하고 다시 시작
-        currentTime = timeLimit;
-        StopCoroutine("CountDownTimerRoutine");
-        StartCoroutine("CountDownTimerRoutine");
     }
 
     void GameOver(bool success) {

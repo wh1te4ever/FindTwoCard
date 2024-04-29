@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    public static Board instance;
+
+    [SerializeField]
+    private GameObject bossPrefab;
+
     [SerializeField]
     private GameObject cardPrefab;
 
@@ -29,6 +34,7 @@ public class Board : MonoBehaviour
         ShuffleCardID();
         InitBoard();
         InitHealth();
+        InitBoss();
     }
 
     void GenerateCardID() {
@@ -82,7 +88,7 @@ public class Board : MonoBehaviour
     }
 
     void InitBoard() {
-        float spaceY = 1.8f;
+        float spaceY = 1.7f;
         // row
         // 0 - 2 = -2 * spaceY = -3.6
         // 1 - 2 = -1 * spaceY = -1.8
@@ -103,7 +109,7 @@ public class Board : MonoBehaviour
         // -2, -0.7, 0.7, 2
 
 
-        int rowCount = 4;
+        int rowCount = 3;
         int colCount = 4;
 
         int cardIndex = 0;
@@ -111,7 +117,7 @@ public class Board : MonoBehaviour
         for (int row = 0; row < rowCount; row++) {
             for(int col = 0; col < colCount; col++) {
                 float posX = (col - (colCount / 2)) * spaceX + (spaceX / 2);
-                float posY = (row - (int)(rowCount / 2)) * spaceY;
+                float posY = (row - (float)(rowCount / 1.25)) * spaceY;
                 Vector3 pos = new Vector3(posX, posY, 0f);
                 GameObject cardObject = Instantiate(cardPrefab, pos, Quaternion.identity);
                 Card card = cardObject.GetComponent<Card>();
@@ -122,8 +128,20 @@ public class Board : MonoBehaviour
             }
         }
     }
+    void InitBoss()
+    {
+        Vector3 pos = new Vector3(0f, 2.2f, 0f);
+        GameObject bossObject = Instantiate(bossPrefab, pos, Quaternion.identity);
+    }
 
     public List<Card> GetCards() {
         return cardList;
+    }
+
+    void ResetBoard()
+    {
+        GenerateCardID();
+        ShuffleCardID();
+        InitBoard();
     }
 }
