@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
     private int combo = 0;
     private int damage;
 
-
     [SerializeField]
     private float timeLimit = 60f;
     private float currentTime;
@@ -68,6 +67,7 @@ public class GameManager : MonoBehaviour
         SetCurrentTimeText();
         StartCoroutine("FlipAllCardsRoutine");
         CountDownTimerRoutine();
+        BossHealthBar();
     }
 
     void SetCurrentTimeText() {
@@ -100,11 +100,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator BossHealthBar()
     {
-        while (bossHpCur > 0)
-        {
-            bossHealthSlider.value = Boss.bossHealthCur / Boss.bossHealthMax;
-            yield return null;
-        }
+        bossHealthSlider.value = Boss.bossHealthCur / Boss.bossHealthMax;
+        yield return null;
     }
 
     void FlipAllCards() {
@@ -137,7 +134,7 @@ public class GameManager : MonoBehaviour
             matchesFound++;
             combo++;
 
-            if(matchesFound == totalMatches) {
+            if (matchesFound == totalMatches) {
                 GameOver(true);
             }
 
@@ -145,8 +142,9 @@ public class GameManager : MonoBehaviour
             //Health health = GameObject.Find("Health");//GetComponent<Health>();
             DecreaseHealth();
             Boss.bossHealthCur -= combo;
+            BossHealthBar();
             combo = 0;
-            StartCoroutine(BossHealthBar());
+            BossHealthBar();
             Debug.Log(Boss.bossHealthCur);
             // Debug.Log("Different Card!!!");
             yield return new WaitForSeconds(1f);

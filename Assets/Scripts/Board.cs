@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    public static Board instance;
 
     [SerializeField]
     private GameObject bossPrefab;
@@ -135,5 +136,12 @@ public class Board : MonoBehaviour
 
     public List<Card> GetCards() {
         return cardList;
+    }
+
+    void ResetBoard()
+    {
+        GenerateCardID();
+        ShuffleCardID();
+        InitBoard();
     }
 }
