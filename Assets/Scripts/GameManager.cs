@@ -117,7 +117,9 @@ public class GameManager : MonoBehaviour
             card2.SetMatched();
             matchesFound++;
 
-            if(matchesFound == totalMatches) {
+            RestartTimer();
+
+            if (matchesFound == totalMatches) {
                 GameOver(true);
             }
         } else {
@@ -129,11 +131,25 @@ public class GameManager : MonoBehaviour
             card1.FlipCard();
             card2.FlipCard();
 
+            StopCoroutine("CountDownTimerRoutine");
             yield return new WaitForSeconds(0.4f);
+            
+            RestartTimer();
+
+            if(isGameOver)
+                StopCoroutine("CountDownTimerRoutine");
         }
 
         isFlipping = false;
         flippedCard = null;
+    }
+
+    void RestartTimer()
+    {
+        // 현재 타이머를 다시 설정하고 코루틴을 중지하고 다시 시작
+        currentTime = timeLimit;
+        StopCoroutine("CountDownTimerRoutine");
+        StartCoroutine("CountDownTimerRoutine");
     }
 
     void GameOver(bool success) {
