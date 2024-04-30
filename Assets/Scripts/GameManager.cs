@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     private int damage;
 
     [SerializeField]
-    private float timeLimit = 60f;
+    private float timeLimit = 5f;
     private float currentTime;
     private int totalMatches = 6;
     private int matchesFound = 0;
@@ -140,6 +140,8 @@ public class GameManager : MonoBehaviour
             matchesFound++;
             combo++;
 
+            RestartTimer();
+
             if (matchesFound == totalMatches) {
                 GameOver(true);
             }
@@ -158,7 +160,13 @@ public class GameManager : MonoBehaviour
             card1.FlipCard();
             card2.FlipCard();
 
+            StopCoroutine("CountDownTimerRoutine");
             yield return new WaitForSeconds(0.4f);
+
+            RestartTimer();
+
+            if(isGameOver)
+                StopCoroutine("CountDownTimerRoutine");
         }
 
         isFlipping = false;
@@ -238,5 +246,13 @@ public class GameManager : MonoBehaviour
 
         allHealths[board.healthCount-1].healthRenderer.sprite = allHealths[board.healthCount-1].unfilledHealthSprite;
         board.healthCount -= 1;
+    }
+
+    void RestartTimer()
+    {
+        // 현재 타이머를 다시 설정하고 코루틴을 중지하고 다시 시작
+        currentTime = timeLimit;
+        StopCoroutine("CountDownTimerRoutine");
+        StartCoroutine("CountDownTimerRoutine");
     }
 }
