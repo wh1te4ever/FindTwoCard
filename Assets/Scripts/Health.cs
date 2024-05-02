@@ -14,6 +14,7 @@ public class Health : MonoBehaviour
 
     [SerializeField]
     public Sprite unfilledHealthSprite;
+    public Sprite filledHealthSprite;
 
     public int healthID;
 
@@ -27,6 +28,10 @@ public class Health : MonoBehaviour
 
     public void SetHealthUnfilledSprite() {
         healthRenderer.sprite = unfilledHealthSprite;
+    }
+
+    public void SetHealthfilledSprite() {
+        healthRenderer.sprite = filledHealthSprite;
     }
 
 }

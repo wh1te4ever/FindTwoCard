@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI timeoutText;
 
     [SerializeField]
+    private TextMeshProUGUI comboCountText;
+
+    [SerializeField]
     private Slider bossHealthSlider;
 
     [SerializeField]
@@ -67,12 +70,15 @@ public class GameManager : MonoBehaviour
         SetCurrentTimeText();
         StartCoroutine("FlipAllCardsRoutine");
         CountDownTimerRoutine();
-        //BossHealthBar();
     }
 
     void SetCurrentTimeText() {
         int timeSec = Mathf.CeilToInt(currentTime);
         timeoutText.SetText(timeSec.ToString());
+    }
+
+    void SetComboCountText(int comboCount) {
+        comboCountText.SetText(comboCount.ToString() + " Combo");
     }
 
     IEnumerator FlipAllCardsRoutine() {
@@ -84,8 +90,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         isFlipping = false;
 
-        // StartCoroutine("BossHealthBar");
-        //BossHealthBar();
         yield return StartCoroutine("CountDownTimerRoutine");
     }
 
@@ -100,19 +104,17 @@ public class GameManager : MonoBehaviour
         GameOver(false);
     }
 
-    void BossHealthBar()
+    void updateBossHealthBar()
     {
-        Debug.Log("bossHealthCur: " + Boss.bossHealthCur + "bossHealthMax: " +Boss.bossHealthMax);
+        //Debug.Log("bossHealthCur: " + Boss.bossHealthCur + "bossHealthMax: " +Boss.bossHealthMax);
         bossHealthSlider.value = (float)((float)Boss.bossHealthCur / (float)Boss.bossHealthMax);
-        Debug.Log("bossHealthSlider.value: " + bossHealthSlider.value);
         //Debug.Log("bossHealthSlider.value: " + bossHealthSlider.value);
-        //bossHealthSlider.value = 0.5f;
-        //yield return null;
     }
 
     void FlipAllCards() {
         foreach (Card card in allCards) {
-            card.FlipCard();
+            if(card != null)
+                card.FlipCard();
         }
     }
 
@@ -134,26 +136,65 @@ public class GameManager : MonoBehaviour
         isFlipping = true;
 
         if(card1.cardID == card2.cardID) {
+
             // Debug.Log("Same Card!!!");
             card1.SetMatched();
             card2.SetMatched();
             matchesFound++;
             combo++;
+            SetComboCountText(combo);
 
             RestartTimer();
 
             if (matchesFound == totalMatches) {
-                GameOver(true);
+                Boss.bossHealthCur -= combo;
+                updateBossHealthBar();
+                combo = 0;
+
+                Debug.Log("Boss.bossHealthCur: " + Boss.bossHealthCur + ", combo: " + combo);
+                if(Boss.bossHealthCur > 0) {
+                    //refresh card 
+                    Board board  = FindObjectOfType<Board>();
+                    board.ResetBoard();
+
+                    //init timer and stop timer
+                    currentTime = timeLimit;
+                    StopCoroutine("CountDownTimerRoutine");
+                    
+                    //flip all cards
+                    allCards = board.GetCards();
+                    yield return new WaitForSeconds(0.5f);
+                    FlipAllCards();
+                    yield return new WaitForSeconds(3f);
+                    FlipAllCards();
+                    yield return new WaitForSeconds(0.5f);
+
+                    matchesFound = 0;
+                    SetComboCountText(combo);
+
+                    //refresh health
+                    allHealths = board.GetHealths();
+                    for(int i = 0; i < 5; i++) {
+                        allHealths[i].healthRenderer.sprite = allHealths[i].filledHealthSprite;
+                    }
+                    board.healthCount = 5;
+
+                    //start timer
+                    StartCoroutine("CountDownTimerRoutine");
+                }
+                else {
+                    GameOver(true);
+                }
             }
 
         } else {
             //Health health = GameObject.Find("Health");//GetComponent<Health>();
             DecreaseHealth();
+            //Debug.Log("Boss.bossHealthCur: " + Boss.bossHealthCur + ", combo: " + combo);
             Boss.bossHealthCur -= combo;
-            BossHealthBar();
+            updateBossHealthBar();
             combo = 0;
-            BossHealthBar();
-            Debug.Log(Boss.bossHealthCur);
+            //Debug.Log(Boss.bossHealthCur);
             // Debug.Log("Different Card!!!");
             yield return new WaitForSeconds(1f);
 
@@ -208,7 +249,7 @@ public class GameManager : MonoBehaviour
     public void pauseBtnClicked() {
         if(isGameOver)
             return;
-        Debug.Log("pauseBtnClicked!!");
+        //Debug.Log("pauseBtnClicked!!");
         isGamePaused = true;
 
         Time.timeScale = 0;
@@ -227,7 +268,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void DecreaseHealth() {
-        Debug.Log("DecreaseHealth Called!");
+        //Debug.Log("DecreaseHealth Called!");
         Board board = FindObjectOfType<Board>();
 
         if(board.healthCount <= 1) {
@@ -236,7 +277,7 @@ public class GameManager : MonoBehaviour
 
         allHealths = board.GetHealths();
 
-        Debug.Log("allHealths.Count?" + allHealths.Count);
+        //Debug.Log("allHealths.Count?" + allHealths.Count);
         
         //allHealths[4].unfilledHealthSprite();
         // foreach (Health health in allHealths) {

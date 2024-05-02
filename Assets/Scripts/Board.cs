@@ -138,9 +138,9 @@ public class Board : MonoBehaviour
         return cardList;
     }
 
-    void ResetBoard()
+    public void ResetBoard()
     {
-        GenerateCardID();
+        //GenerateCardID();
         ShuffleCardID();
         InitBoard();
     }
