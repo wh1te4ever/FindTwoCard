@@ -130,7 +130,7 @@ public class Board : MonoBehaviour
     }
     void InitBoss()
     {
-        Vector3 pos = new Vector3(0f, 2.2f, 0f);
+        Vector3 pos = new Vector3(0f, 0.85f, 0f);
         GameObject bossObject = Instantiate(bossPrefab, pos, Quaternion.identity);
     }
 

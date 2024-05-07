@@ -2098,7 +2098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 219a498a799264852864bb61b8a9238d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossPrefab: {fileID: 642826168795829473, guid: 8cfa1a9ec8451b24dab7159f5aef7b8c, type: 3}
+  bossPrefab: {fileID: 7041806645088666966, guid: 332b21a684312b34798ace98affe4eed, type: 3}
   cardPrefab: {fileID: 7643008111828314505, guid: 247499350ac2a4e80a0dacbb338ab74e, type: 3}
   cardSprites:
   - {fileID: -1665517582, guid: b6a2bb854651e47938a4c5b86187021b, type: 3}

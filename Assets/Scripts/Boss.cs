@@ -12,12 +12,12 @@ public class Boss : MonoBehaviour
 
     public static int bossHealthCur;
 
-    private SpriteRenderer bossColor;
+    // private SpriteRenderer bossColor;
 
     public void SetBossHealth(int hp)
     {
-        bossHealthCur = hp * GameManager.instance.round;
-        bossHealthMax = hp * GameManager.instance.round;
+        bossHealthCur = hp + (5 * GameManager.instance.round);
+        bossHealthMax = hp + (5 * GameManager.instance.round);
     }
 
     // Start is called before the first frame update
@@ -25,14 +25,14 @@ public class Boss : MonoBehaviour
     {
         SetBossHealth(20);
 
-        bossColor = GetComponent<SpriteRenderer>();
+        /* bossColor = GetComponent<SpriteRenderer>();
 
         Color currentColor = bossColor.color;
 
         currentColor.g -= 0.05f * GameManager.instance.round;
         currentColor.b -= 0.05f * GameManager.instance.round;
 
-        bossColor.color = currentColor;
+        bossColor.color = currentColor; */
     }
 
     // Update is called once per frame
