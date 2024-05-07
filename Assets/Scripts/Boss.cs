@@ -12,34 +12,37 @@ public class Boss : MonoBehaviour
 
     public static int bossHealthCur;
 
+    private SpriteRenderer bossColor;
+
     public void SetBossHealth(int hp)
     {
         bossHealthCur = hp * GameManager.instance.round;
         bossHealthMax = hp * GameManager.instance.round;
     }
 
-    public void BossKilled()
-    {
-        if (bossHealthCur <= 0) {
-            GameManager.instance.round++;
-            Destroy(gameObject, 1.0f);
-        }
-    }
-
     // Start is called before the first frame update
     void Start()
     {
         SetBossHealth(20);
+
+        bossColor = GetComponent<SpriteRenderer>();
+
+        Color currentColor = bossColor.color;
+
+        currentColor.g -= 0.05f * GameManager.instance.round;
+        currentColor.b -= 0.05f * GameManager.instance.round;
+
+        bossColor.color = currentColor;
     }
 
     // Update is called once per frame
     void Update()
     {
-        BossKilled();
-        void onDestroy()
+        if (bossHealthCur <= 0)
         {
+            GameManager.instance.round++;
+            Destroy(gameObject, 1.0f);
             Instantiate(prefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
         }
-
     }
 }

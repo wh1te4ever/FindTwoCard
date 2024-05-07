@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
             if (matchesFound == totalMatches) {
                 Boss.bossHealthCur -= combo;
                 updateBossHealthBar();
-                combo = 0;
+                yield return new WaitForSeconds(0.5f);
 
                 Debug.Log("Boss.bossHealthCur: " + Boss.bossHealthCur + ", combo: " + combo);
                 if(Boss.bossHealthCur > 0) {
@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
                     allCards = board.GetCards();
                     yield return new WaitForSeconds(0.5f);
                     FlipAllCards();
-                    yield return new WaitForSeconds(3f);
+                    yield return new WaitForSeconds(3.0f / combo);
                     FlipAllCards();
                     yield return new WaitForSeconds(0.5f);
 
