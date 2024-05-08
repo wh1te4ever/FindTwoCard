@@ -110,9 +110,9 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
+        DecreaseHealth();
         Board board  = FindObjectOfType<Board>();
-        if(board.healthCount > 1) {
-            DecreaseHealth();
+        if(board.healthCount > 0) {
             RestartTimer();
         } else {
             GameOver(false);
