@@ -38,6 +38,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GameManager.instance.updateBossHealthBar();
         if (bossHealthCur <= 0)
         {
             GameManager.instance.round++;

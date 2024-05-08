@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI comboCountText;
 
     [SerializeField]
+    private TextMeshProUGUI roundCountText;
+
+    [SerializeField]
     private Slider bossHealthSlider;
 
     [SerializeField]
@@ -68,6 +71,7 @@ public class GameManager : MonoBehaviour
 
         currentTime = timeLimit;
         SetCurrentTimeText();
+        SetRoundCountText(round);
         StartCoroutine("FlipAllCardsRoutine");
         CountDownTimerRoutine();
     }
@@ -81,8 +85,13 @@ public class GameManager : MonoBehaviour
         comboCountText.SetText(comboCount.ToString() + " Combo");
     }
 
+    void SetRoundCountText(int roundCount) {
+        roundCountText.SetText("Round " + roundCount.ToString());
+    }
+
     IEnumerator FlipAllCardsRoutine() {
         isFlipping = true;
+        SetRoundCountText(round);
         yield return new WaitForSeconds(0.5f);
         FlipAllCards();
         yield return new WaitForSeconds(3f);
@@ -104,7 +113,7 @@ public class GameManager : MonoBehaviour
         GameOver(false);
     }
 
-    void updateBossHealthBar()
+    public void updateBossHealthBar()
     {
         //Debug.Log("bossHealthCur: " + Boss.bossHealthCur + "bossHealthMax: " +Boss.bossHealthMax);
         bossHealthSlider.value = (float)((float)Boss.bossHealthCur / (float)Boss.bossHealthMax);
@@ -113,8 +122,10 @@ public class GameManager : MonoBehaviour
 
     void FlipAllCards() {
         foreach (Card card in allCards) {
-            if(card != null)
+            if (card != null) {
+                SetRoundCountText(round);
                 card.FlipCard();
+            }
         }
     }
 
@@ -127,8 +138,10 @@ public class GameManager : MonoBehaviour
 
         if(flippedCard == null) {
             flippedCard = card;
+            SetRoundCountText(round);
         } else {
             StartCoroutine(CheckMatchRoutine(flippedCard, card));
+            SetRoundCountText(round);
         }
     }
 
@@ -142,13 +155,15 @@ public class GameManager : MonoBehaviour
             card2.SetMatched();
             matchesFound++;
             combo++;
+            SetRoundCountText(round);
             SetComboCountText(combo);
 
             RestartTimer();
 
             if (matchesFound == totalMatches) {
+                SetRoundCountText(round);
                 Boss.bossHealthCur -= combo;
-                updateBossHealthBar();
+                //updateBossHealthBar();
                 yield return new WaitForSeconds(0.5f);
 
                 Debug.Log("Boss.bossHealthCur: " + Boss.bossHealthCur + ", combo: " + combo);
@@ -160,17 +175,20 @@ public class GameManager : MonoBehaviour
                     //init timer and stop timer
                     currentTime = timeLimit;
                     StopCoroutine("CountDownTimerRoutine");
-                    
+
                     //flip all cards
+                    SetRoundCountText(round);
                     allCards = board.GetCards();
                     yield return new WaitForSeconds(0.5f);
                     FlipAllCards();
-                    yield return new WaitForSeconds(3.0f / combo);
+                    yield return new WaitForSeconds(3.0f - (0.1f * round));
+                    Debug.Log("Waiting : " + (3.0f - (0.1f * round)));
                     FlipAllCards();
                     yield return new WaitForSeconds(0.5f);
 
                     matchesFound = 0;
                     SetComboCountText(combo);
+                    SetRoundCountText(round);
 
                     //refresh health
                     allHealths = board.GetHealths();
@@ -178,7 +196,7 @@ public class GameManager : MonoBehaviour
                         allHealths[i].healthRenderer.sprite = allHealths[i].filledHealthSprite;
                     }
                     board.healthCount = 5;
-
+                    SetRoundCountText(round);
                     //start timer
                     StartCoroutine("CountDownTimerRoutine");
                 }
@@ -192,7 +210,8 @@ public class GameManager : MonoBehaviour
             DecreaseHealth();
             //Debug.Log("Boss.bossHealthCur: " + Boss.bossHealthCur + ", combo: " + combo);
             Boss.bossHealthCur -= combo;
-            updateBossHealthBar();
+            //updateBossHealthBar();
+            SetRoundCountText(round);
             combo = 0;
             //Debug.Log(Boss.bossHealthCur);
             // Debug.Log("Different Card!!!");
