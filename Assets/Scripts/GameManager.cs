@@ -110,7 +110,13 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        GameOver(false);
+        Board board  = FindObjectOfType<Board>();
+        if(board.healthCount > 1) {
+            DecreaseHealth();
+            RestartTimer();
+        } else {
+            GameOver(false);
+        }
     }
 
     public void updateBossHealthBar()
