@@ -31,7 +31,7 @@ public class Boss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (enableHardMode) SetBossHealth(20);
+        if (enableHardMode) SetBossHealth(10);
         else SetBossHealth(15);
 
         /* bossColor = GetComponent<SpriteRenderer>();
