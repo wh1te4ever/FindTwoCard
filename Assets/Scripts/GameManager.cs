@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject gamePausePanel;
+    [SerializeField]
+    private TextMeshProUGUI maxComboText;
 
     public int round;
 
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     //콤보, 대미지
     private int combo = 0;
+    private int maxComboCount = 0;
     private int damage;
 
     [SerializeField]
@@ -83,6 +86,13 @@ public class GameManager : MonoBehaviour
 
     void SetComboCountText(int comboCount) {
         comboCountText.SetText(comboCount.ToString() + " Combo");
+        if(comboCount > maxComboCount)
+            SetMaxComboText(comboCount);
+    }
+
+    void SetMaxComboText(int comboCount) {
+        maxComboCount = comboCount;
+        maxComboText.SetText("Max Combo: " + maxComboCount.ToString());
     }
 
     void SetRoundCountText(int roundCount) {
@@ -219,6 +229,7 @@ public class GameManager : MonoBehaviour
             //updateBossHealthBar();
             SetRoundCountText(round);
             combo = 0;
+            SetComboCountText(combo);
             //Debug.Log(Boss.bossHealthCur);
             // Debug.Log("Different Card!!!");
             yield return new WaitForSeconds(1f);
