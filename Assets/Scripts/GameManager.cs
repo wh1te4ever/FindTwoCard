@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
     private bool isGameOver = false;
     private bool isGamePaused = false;
 
+    public bool perfectEnable = false;
+
     //보스 체력
     public int bossHpCur = Boss.bossHealthCur;
     public int bossHpMax = Boss.bossHealthMax;
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
     private int combo = 0;
     private int maxComboCount = 0;
     private int damage;
+    private int comboPerRound = 0;
 
     [SerializeField]
     private float timeLimit = 5f;
@@ -171,6 +174,7 @@ public class GameManager : MonoBehaviour
             card2.SetMatched();
             matchesFound++;
             combo++;
+            comboPerRound++;
             SetRoundCountText(round);
             SetComboCountText(combo);
 
@@ -178,8 +182,15 @@ public class GameManager : MonoBehaviour
 
             if (matchesFound == totalMatches) {
                 SetRoundCountText(round);
-                Boss.bossHealthCur -= combo;
+
+                if (perfectEnable && comboPerRound == 6) {
+                    Boss.bossHealthCur -= combo * 2;
+                    comboPerRound = 0;
+                }
+                else Boss.bossHealthCur -= combo;
+
                 //updateBossHealthBar();
+
                 yield return new WaitForSeconds(0.5f);
 
                 Debug.Log("Boss.bossHealthCur: " + Boss.bossHealthCur + ", combo: " + combo);
@@ -229,6 +240,7 @@ public class GameManager : MonoBehaviour
             //updateBossHealthBar();
             SetRoundCountText(round);
             combo = 0;
+            comboPerRound--;
             SetComboCountText(combo);
             //Debug.Log(Boss.bossHealthCur);
             // Debug.Log("Different Card!!!");

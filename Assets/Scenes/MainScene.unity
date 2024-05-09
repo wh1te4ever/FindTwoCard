@@ -988,6 +988,7 @@ MonoBehaviour:
   gamePausePanel: {fileID: 1911500618}
   maxComboText: {fileID: 968392255}
   round: 1
+  perfectEnable: 1
   bossHpCur: 20
   bossHpMax: 20
   timeLimit: 5
@@ -2193,6 +2194,7 @@ MonoBehaviour:
   gamePausePanel: {fileID: 1911500618}
   maxComboText: {fileID: 0}
   round: 1
+  perfectEnable: 0
   bossHpCur: 20
   bossHpMax: 20
   timeLimit: 5

@@ -12,18 +12,27 @@ public class Boss : MonoBehaviour
 
     public static int bossHealthCur;
 
+    public bool enableHardMode = false;
     // private SpriteRenderer bossColor;
 
     public void SetBossHealth(int hp)
     {
-        bossHealthCur = hp + (5 * GameManager.instance.round);
-        bossHealthMax = hp + (5 * GameManager.instance.round);
+        if (enableHardMode) {
+            bossHealthCur = hp * GameManager.instance.round;
+            bossHealthMax = hp * GameManager.instance.round;
+        }
+        else {
+            bossHealthCur = hp + (5 * GameManager.instance.round);
+            bossHealthMax = hp + (5 * GameManager.instance.round);
+        }
+        Debug.Log(bossHealthMax);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        SetBossHealth(20);
+        if (enableHardMode) SetBossHealth(20);
+        else SetBossHealth(15);
 
         /* bossColor = GetComponent<SpriteRenderer>();
 
