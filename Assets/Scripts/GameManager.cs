@@ -57,6 +57,9 @@ public class GameManager : MonoBehaviour
     private int damage;
     private int comboPerRound = 0;
 
+    //라운드
+    private int roundCount = 0;
+
     [SerializeField]
     private float timeLimit = 5f;
     private float currentTime;
@@ -186,8 +189,20 @@ public class GameManager : MonoBehaviour
                 if (perfectEnable && comboPerRound == 6) {
                     Boss.bossHealthCur -= combo * 2;
                     comboPerRound = 0;
+                        if (Boss.bossHealthCur <= 0)
+                         {
+                            StartCoroutine(StartNewRound());
+                         }
                 }
-                else Boss.bossHealthCur -= combo;
+                else
+                {
+                    Boss.bossHealthCur -= combo;
+                    if (Boss.bossHealthCur <= 0)
+                    {
+                        StartCoroutine(StartNewRound());
+                    }
+                } 
+                    
 
                 //updateBossHealthBar();
 
@@ -344,4 +359,23 @@ public class GameManager : MonoBehaviour
         StopCoroutine("CountDownTimerRoutine");
         StartCoroutine("CountDownTimerRoutine");
     }
+
+   
+
+    IEnumerator StartNewRound()
+    {
+
+        yield return new WaitForSeconds(0f); 
+
+        
+        Boss.bossHealthCur = Boss.bossHealthMax;
+        updateBossHealthBar();
+        isGameOver = false;
+
+        roundCount++;
+        SetRoundCountText(round);
+        
+        RestartTimer();
+    }
+
 }
