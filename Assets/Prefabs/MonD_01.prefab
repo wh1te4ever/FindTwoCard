@@ -15536,7 +15536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7041806645088666966}
-  enableHardMode: 0
+  enableHardMode: 1
 --- !u!212 &1093291899469496683
 SpriteRenderer:
   m_ObjectHideFlags: 0

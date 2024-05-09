@@ -55,7 +55,6 @@ public class GameManager : MonoBehaviour
     private int combo = 0;
     private int maxComboCount = 0;
     private int damage;
-    private int comboPerRound = 0;
 
     //라운드
     private int roundCount = 0;
@@ -177,7 +176,6 @@ public class GameManager : MonoBehaviour
             card2.SetMatched();
             matchesFound++;
             combo++;
-            comboPerRound++;
             SetRoundCountText(round);
             SetComboCountText(combo);
 
@@ -186,9 +184,9 @@ public class GameManager : MonoBehaviour
             if (matchesFound == totalMatches) {
                 SetRoundCountText(round);
 
-                if (perfectEnable && comboPerRound == 6) {
+                if (perfectEnable && combo >= 6) {
                     Boss.bossHealthCur -= combo * 2;
-                    comboPerRound = 0;
+                    Debug.Log("Perfect!");
                         if (Boss.bossHealthCur <= 0)
                          {
                             StartCoroutine(StartNewRound());
@@ -255,7 +253,6 @@ public class GameManager : MonoBehaviour
             //updateBossHealthBar();
             SetRoundCountText(round);
             combo = 0;
-            comboPerRound--;
             SetComboCountText(combo);
             //Debug.Log(Boss.bossHealthCur);
             // Debug.Log("Different Card!!!");
