@@ -2241,13 +2241,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossPrefab: {fileID: 7041806645088666966, guid: 332b21a684312b34798ace98affe4eed, type: 3}
   cardPrefab: {fileID: 7643008111828314505, guid: 247499350ac2a4e80a0dacbb338ab74e, type: 3}
-  cardSprites:
-  - {fileID: -1665517582, guid: b6a2bb854651e47938a4c5b86187021b, type: 3}
-  - {fileID: 1753932182, guid: b6a2bb854651e47938a4c5b86187021b, type: 3}
-  - {fileID: -1019859811, guid: 4edfb2b9c1a694922904462a03fa60d7, type: 3}
-  - {fileID: -1965129257, guid: b6a2bb854651e47938a4c5b86187021b, type: 3}
-  - {fileID: 1594003768, guid: b6a2bb854651e47938a4c5b86187021b, type: 3}
-  - {fileID: 1914726173, guid: b6a2bb854651e47938a4c5b86187021b, type: 3}
+  colorMode: 0
+  animalCardSprites:
+  - {fileID: 21300000, guid: ab31b29b5f662bd4ba8284951545ed05, type: 2}
+  - {fileID: 21300000, guid: 56e1907fa09e3bf4ba6f6557440b2934, type: 2}
+  - {fileID: 21300000, guid: b09e95eef4d983048a330e14cf9e7620, type: 2}
+  - {fileID: 21300000, guid: 1c92325fde39049438320e020a5f26c5, type: 2}
+  - {fileID: 21300000, guid: 7f9fb476407cafa46b32e756bb0ad6e8, type: 2}
+  - {fileID: 21300000, guid: df8d25091476297488ad066e740fb87b, type: 2}
+  colorCardSprites:
+  - {fileID: 7482667652216324306, guid: 5b0ce989c5d718f48b5b78f60ecbbf26, type: 3}
+  - {fileID: 7482667652216324306, guid: 11ad68666070fa649a9783674cc9c5ec, type: 3}
+  - {fileID: 7482667652216324306, guid: 90518692a23495449b0a75b274980054, type: 3}
+  - {fileID: 7482667652216324306, guid: 326f2297dd256414baad05f5cc15107a, type: 3}
+  - {fileID: 7482667652216324306, guid: 4cdc635effb0dcf4fa67a29048bae9c9, type: 3}
+  - {fileID: 7482667652216324306, guid: 90ce7c141966bdc46bb972044d8e14cb, type: 3}
   healthPrefab: {fileID: 7643008111828314505, guid: 7361e5112492a4143b8c3e17a728fc25, type: 3}
   healthSprites:
   - {fileID: 21300000, guid: 116f6ffd95785054fb0ff14d77296973, type: 3}

@@ -6,14 +6,21 @@ public class Board : MonoBehaviour
 {
     public static Board instance;
 
+
+
     [SerializeField]
     private GameObject bossPrefab;
 
     [SerializeField]
     private GameObject cardPrefab;
 
+    public bool colorMode = false;
+
     [SerializeField]
-    private Sprite[] cardSprites;
+    private Sprite[] animalCardSprites;
+
+    [SerializeField]
+    private Sprite[] colorCardSprites;
 
     private List<int> cardIDList = new List<int>();
     private List<Card> cardList = new List<Card>();
@@ -38,11 +45,21 @@ public class Board : MonoBehaviour
     }
 
     void GenerateCardID() {
-        // 0, 0, 1, 1, 2, 2, 3, 3, ... 9, 9
-        for (int i = 0; i < cardSprites.Length; i++) {
-            cardIDList.Add(i);
-            cardIDList.Add(i);
+        if (colorMode) {
+            for (int i = 0; i < colorCardSprites.Length; i++)
+            {
+                cardIDList.Add(i);
+                cardIDList.Add(i);
+            }
         }
+        else {
+            for (int i = 0; i < animalCardSprites.Length; i++)
+            {
+                cardIDList.Add(i);
+                cardIDList.Add(i);
+            }
+        }
+        
     }
 
     void ShuffleCardID() {
@@ -114,19 +131,41 @@ public class Board : MonoBehaviour
 
         int cardIndex = 0;
 
-        for (int row = 0; row < rowCount; row++) {
-            for(int col = 0; col < colCount; col++) {
-                float posX = (col - (colCount / 2)) * spaceX + (spaceX / 2);
-                float posY = (row - (float)(rowCount / 1.25)) * spaceY;
-                Vector3 pos = new Vector3(posX, posY, 0f);
-                GameObject cardObject = Instantiate(cardPrefab, pos, Quaternion.identity);
-                Card card = cardObject.GetComponent<Card>();
-                int cardID = cardIDList[cardIndex++];
-                card.SetCardID(cardID);
-                card.SetAnimalSprite(cardSprites[cardID]);
-                cardList.Add(card);
+        if (colorMode) {
+            for (int row = 0; row < rowCount; row++)
+            {
+                for (int col = 0; col < colCount; col++)
+                {
+                    float posX = (col - (colCount / 2)) * spaceX + (spaceX / 2);
+                    float posY = (row - (float)(rowCount / 1.25)) * spaceY;
+                    Vector3 pos = new Vector3(posX, posY, 0f);
+                    GameObject cardObject = Instantiate(cardPrefab, pos, Quaternion.identity);
+                    Card card = cardObject.GetComponent<Card>();
+                    int cardID = cardIDList[cardIndex++];
+                    card.SetCardID(cardID);
+                    card.SetAnimalSprite(colorCardSprites[cardID]);
+                    cardList.Add(card);
+                }
             }
         }
+        else {
+            for (int row = 0; row < rowCount; row++)
+            {
+                for (int col = 0; col < colCount; col++)
+                {
+                    float posX = (col - (colCount / 2)) * spaceX + (spaceX / 2);
+                    float posY = (row - (float)(rowCount / 1.25)) * spaceY;
+                    Vector3 pos = new Vector3(posX, posY, 0f);
+                    GameObject cardObject = Instantiate(cardPrefab, pos, Quaternion.identity);
+                    Card card = cardObject.GetComponent<Card>();
+                    int cardID = cardIDList[cardIndex++];
+                    card.SetCardID(cardID);
+                    card.SetAnimalSprite(animalCardSprites[cardID]);
+                    cardList.Add(card);
+                }
+            }
+        }
+        
     }
     void InitBoss()
     {

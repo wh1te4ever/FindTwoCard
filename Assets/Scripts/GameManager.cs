@@ -208,8 +208,8 @@ public class GameManager : MonoBehaviour
                     allCards = board.GetCards();
                     yield return new WaitForSeconds(0.5f);
                     FlipAllCards();
-                    yield return new WaitForSeconds(3.0f - (0.1f * round));
-                    Debug.Log("Waiting : " + (3.0f - (0.1f * round)));
+                    yield return new WaitForSeconds(3.15f - (0.15f * round));
+                    Debug.Log("Waiting : " + (3.15f - (0.15f * round)));
                     FlipAllCards();
                     yield return new WaitForSeconds(0.5f);
 
